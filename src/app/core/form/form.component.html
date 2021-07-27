@@ -1,0 +1,115 @@
+<div class="header color">
+  <h1
+    style="
+      font-family: 'Times New Roman', Times, serif;
+      font: size 50px;
+      color: gray;
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+    "
+  >
+    Tournament Details
+  </h1>
+</div>
+
+<section>
+  <form id="form" [formGroup]="registrationForm">
+    <div class="row form">
+      <!-- here is logic -->
+      <div class="col-md-12" *ngFor="let control of dynamicFormArray">
+        <div [ngSwitch]="control.Type">
+          <div *ngSwitchCase="'input'">
+            <div class="col-md-4">
+              <label
+                style="
+                  font-family: 'Times New Roman', Times, serif;
+                  font-size: 20px;
+                "
+                >{{ control.Label }}</label
+              >
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                style="
+                  background: transparent;
+                  font-family: 'Times New Roman', Times, serif;
+                  font-size: 21px;
+                "
+                [formControlName]="control.ID"
+                placeholder="{{ control.Placeholder }}"
+                class="form-control"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get(control.ID).dirty ||
+                  registrationForm.get(control.ID).touched
+                "
+              >
+                <small
+                  *ngIf="!registrationForm.get(control.ID).valid"
+                  style="color: red"
+                  >{{ control.Label }} is Requireds*</small
+                >
+              </div>
+            </div>
+          </div>
+          <div *ngSwitchCase="'date'">
+            <div class="col-md-4">
+              <label
+                style="
+                  font-family: 'Times New Roman', Times, serif;
+                  font-size: 21px;
+                "
+                >{{ control.Label }}</label
+              >
+            </div>
+            <div class="col-md-6">
+              <input
+                type="date"
+                style="
+                  background: transparent;
+                  font-family: 'Times New Roman', Times, serif;
+                  font-size: 20px;
+                "
+                [formControlName]="control.ID"
+                placeholder="{{ control.Placeholder }}"
+                class="form-control"
+              />
+              <div
+                *ngIf="
+                  registrationForm.get(control.ID).dirty ||
+                  registrationForm.get(control.ID).touched
+                "
+              >
+                <small
+                  *ngIf="!registrationForm.get(control.ID).valid"
+                  style="color: red"
+                  >{{ control.Label }} is Requireds*</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      style="
+        background-color: blueviolet;
+        color: white;
+        padding-left: 0.3rem;
+        margin-top: 2px;
+        margin-left: 2px;
+        font-size: 19px;
+        width: 180px;
+        border-radius: 1000px;
+      "
+    >
+      Submit
+    </button>
+  </form>
+</section>

@@ -1,0 +1,78 @@
+<mat-toolbar color="primary">
+  <span>Efficient trip</span>
+  <span style="flex: 1 1 auto"></span>
+  <a routerLink="/" mat-raised-button>Home</a>
+  <span style="width: 1rem"></span>
+  <a routerLink="/about" mat-raised-button>About</a>
+</mat-toolbar>
+<div class="" style="display: flex; height: 100%">
+  <mat-sidenav-container
+    style="width: 10rem; background-color: blueviolet; height: 100%"
+  >
+    <mat-sidenav>Start</mat-sidenav>
+    <mat-sidenav-content>
+      <br />
+      <a href="" mat-raised-button style="margin-left: 0.2rem"> Login </a>&nbsp;
+      <a href="" mat-raised-button> SignUp </a>
+
+      <a
+        href=""
+        mat-raised-button
+        color="accent"
+        style="margin-left: 0.3rem; margin-top: 8rem"
+      >
+        <i class="uil uil-metro" mat-fab></i>
+        Train Bookings
+      </a>
+      <br />
+      <br />
+      <a href="" mat-raised-button color="accent" style="margin-left: 0.3rem">
+        <i class="uil uil-plane"></i>
+        Flight Bookings
+      </a>
+      <br />
+      <br />
+      <a href="" mat-raised-button color="accent" style="margin-left: 0.3rem">
+        <i class="uil uil-bed-double"></i>
+        Hotel Bookings
+      </a>
+      <br />
+      <br />
+      <a href="" mat-raised-button color="accent" style="margin-left: 0.3rem">
+        <i class="uil uil-bill"></i>
+        Fare Calculator
+      </a>
+      <br />
+      <br />
+      <a
+        routerLink="/tournament"
+        mat-raised-button
+        color="accent"
+        style="margin-left: 0.3rem"
+      >
+        <mat-icon>date_range</mat-icon>
+        Tournament
+      </a>
+
+      <a
+        href=""
+        mat-raised-button
+        color="accent"
+        style="margin-left: 0.3rem; position: fixed; bottom: 0; left: 0"
+      >
+        <i class="uil uil-message"></i>
+        Message Us
+      </a>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <div class="content" style="padding: 1rem; width: 90%" id="content">
+    <router-outlet></router-outlet>
+  </div>
+  <button
+    (click)="darkmode()"
+    mat-mini-fab
+    style="position: fixed; bottom: 0; right: 0"
+  >
+    <mat-icon><i class="uil uil-moon"></i></mat-icon>
+  </button>
+</div>
