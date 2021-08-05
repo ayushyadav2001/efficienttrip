@@ -1,115 +1,171 @@
-<div class="header color">
-  <h1
-    style="
-      font-family: 'Times New Roman', Times, serif;
-      font: size 50px;
-      color: gray;
-      margin-top: 10px;
-      text-align: center;
-      font-weight: bold;
-    "
-  >
-    Tournament Details
-  </h1>
-</div>
+<button
+  type="button"
+  class="btn btn-warning m-2 float-end"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  (click)="addClick()"
+>
+  Add Tournament
+</button>
 
-<section>
-  <form id="form" [formGroup]="registrationForm">
-    <div class="row form">
-      <!-- here is logic -->
-      <div class="col-md-12" *ngFor="let control of dynamicFormArray">
-        <div [ngSwitch]="control.Type">
-          <div *ngSwitchCase="'input'">
-            <div class="col-md-4">
-              <label
-                style="
-                  font-family: 'Times New Roman', Times, serif;
-                  font-size: 20px;
-                "
-                >{{ control.Label }}</label
-              >
-            </div>
-            <div class="col-md-6">
-              <input
-                type="text"
-                style="
-                  background: transparent;
-                  font-family: 'Times New Roman', Times, serif;
-                  font-size: 21px;
-                "
-                [formControlName]="control.ID"
-                placeholder="{{ control.Placeholder }}"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  registrationForm.get(control.ID).dirty ||
-                  registrationForm.get(control.ID).touched
-                "
-              >
-                <small
-                  *ngIf="!registrationForm.get(control.ID).valid"
-                  style="color: red"
-                  >{{ control.Label }} is Requireds*</small
-                >
-              </div>
-            </div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Tournament Id</th>
+      <th>Tournament Name</th>
+      <th>Place</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Rounds</th>
+      <th>Category</th>
+      <th>Website</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let tou of Tournament">
+      <td>{{ tou.TournamentId }}</td>
+      <td>{{ tou.TournamentName }}</td>
+      <td>{{ tou.Place }}</td>
+      <td>{{ tou.StartDate }}</td>
+      <td>{{ tou.EndDate }}</td>
+      <td>{{ tou.Rounds }}</td>
+      <td>{{ tou.Category }}</td>
+      <td>{{ tou.Website }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-light mr-1"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          (click)="editClick(tou)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil-square"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-light mr-1"
+          (click)="deleteClick(tou.TournamentId)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-trash-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+            />
+          </svg>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="text-body text-muted" id="exampleModalLabel">
+          {{ modalTitle }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 w-100 bd-highlight">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Name</span>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="TournamentName"
+            />
           </div>
-          <div *ngSwitchCase="'date'">
-            <div class="col-md-4">
-              <label
-                style="
-                  font-family: 'Times New Roman', Times, serif;
-                  font-size: 21px;
-                "
-                >{{ control.Label }}</label
-              >
-            </div>
-            <div class="col-md-6">
-              <input
-                type="date"
-                style="
-                  background: transparent;
-                  font-family: 'Times New Roman', Times, serif;
-                  font-size: 20px;
-                "
-                [formControlName]="control.ID"
-                placeholder="{{ control.Placeholder }}"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  registrationForm.get(control.ID).dirty ||
-                  registrationForm.get(control.ID).touched
-                "
-              >
-                <small
-                  *ngIf="!registrationForm.get(control.ID).valid"
-                  style="color: red"
-                  >{{ control.Label }} is Requireds*</small
-                >
-              </div>
-            </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Place</span>
+            <input type="text" class="form-control" [(ngModel)]="Place" />
           </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Start Date</span>
+            <input type="date" class="form-control" [(ngModel)]="StartDate" />
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">End Date</span>
+            <input type="date" class="form-control" [(ngModel)]="EndDate" />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Rounds</span>
+            <input type="text" class="form-control" [(ngModel)]="Rounds" />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Category</span>
+            <input type="text" class="form-control" [(ngModel)]="Category" />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Website</span>
+            <input type="text" class="form-control" [(ngModel)]="Website" />
+          </div>
+        </div>
+        <br />
+
+        <div
+          class="content"
+          style="position: absolute; bottom: 0px; margin: 0px; top: 500px"
+        >
+          <button
+            type="button"
+            (click)="createClick()"
+            *ngIf="TournamentId == 0"
+            class="btn btn-primary"
+          >
+            Create
+          </button>
+
+          <button
+            type="button"
+            (click)="updateClick()"
+            *ngIf="TournamentId != 0"
+            class="btn btn-primary"
+          >
+            Update
+          </button>
         </div>
       </div>
     </div>
-    <br />
-    <button
-      class="btn btn-outline-secondary"
-      type="button"
-      style="
-        background-color: blueviolet;
-        color: white;
-        padding-left: 0.3rem;
-        margin-top: 2px;
-        margin-left: 2px;
-        font-size: 19px;
-        width: 180px;
-        border-radius: 1000px;
-      "
-    >
-      Submit
-    </button>
-  </form>
-</section>
+  </div>
+</div>
